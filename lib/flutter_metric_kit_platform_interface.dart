@@ -23,11 +23,11 @@ abstract class FlutterMetricKitPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<void> startReceivingReports() {
+  Future<bool> startReceivingReports() {
     return _instance.startReceivingReports();
   }
 
-  Future<void> stopReceivingReports() {
+  Future<bool> stopReceivingReports() {
     return _instance.stopReceivingReports();
   }
 

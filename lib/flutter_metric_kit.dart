@@ -21,12 +21,12 @@ class FlutterMetricKit {
       .asBroadcastStream();
 
   /// Starts receiving MetricKit reports.
-  static Future<void> startReceivingReports() {
+  static Future<bool> startReceivingReports() {
     return FlutterMetricKitPlatform.instance.startReceivingReports();
   }
 
   /// Stops receiving MetricKit reports.
-  static Future<void> stopReceivingReports() {
+  static Future<bool> stopReceivingReports() {
     return FlutterMetricKitPlatform.instance.stopReceivingReports();
   }
 

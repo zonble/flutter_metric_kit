@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     FlutterMetricKit.events.listen((event) {
-      developer.log(event);
+      developer.log(event.toString());
     });
     FlutterMetricKit.startReceivingReports();
   }

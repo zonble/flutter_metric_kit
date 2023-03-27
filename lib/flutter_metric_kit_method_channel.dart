@@ -12,13 +12,15 @@ class MethodChannelFlutterMetricKit extends FlutterMetricKitPlatform {
   final methodChannel = const MethodChannel('flutter_metric_kit');
 
   @override
-  Future<void> startReceivingReports() async {
-    await methodChannel.invokeMethod<String>('start_receiving_reports');
+  Future<bool> startReceivingReports() async {
+    return await methodChannel.invokeMethod<bool>('start_receiving_reports') ??
+        false;
   }
 
   @override
-  Future<void> stopReceivingReports() async {
-    await methodChannel.invokeMethod<String>('stop_receiving_reports');
+  Future<bool> stopReceivingReports() async {
+    return await methodChannel.invokeMethod<bool>('stop_receiving_reports') ??
+        false;
   }
 
   @override
