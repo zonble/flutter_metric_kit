@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -17,5 +19,27 @@ class MethodChannelFlutterMetricKit extends FlutterMetricKitPlatform {
   @override
   Future<void> stopReceivingReports() async {
     await methodChannel.invokeMethod<String>('stop_receiving_reports');
+  }
+
+  @override
+  Future<List<Map>> getPastPayloads() async {
+    final string =
+        await methodChannel.invokeMethod<String>('get_past_payloads');
+    if (string == null) {
+      throw Exception('no result');
+    }
+    final list = json.decode(string);
+    return list.cast<Map>();
+  }
+
+  @override
+  Future<List<Map>> getPastDiagnosticPayloads() async {
+    final string = await methodChannel
+        .invokeMethod<String>('get_diagnostic_past_payloads');
+    if (string == null) {
+      throw Exception('no result');
+    }
+    final list = json.decode(string);
+    return list.cast<Map>();
   }
 }

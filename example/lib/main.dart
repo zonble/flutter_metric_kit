@@ -1,6 +1,7 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_metric_kit/flutter_metric_kit.dart';
-import 'dart:developer' as developer;
 
 void main() {
   runApp(const MyApp());
@@ -30,8 +31,26 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: const Center(
-          child: Text(''),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                  onPressed: () async {
+                    final reports = await FlutterMetricKit.getPastPayloads();
+                    developer.log(reports.toString());
+                  },
+                  child: const Text('getPastPayloads')),
+              TextButton(
+                  onPressed: () async {
+                    final reports =
+                        await FlutterMetricKit.getPastDiagnosticPayloads();
+                    developer.log(reports.toString());
+                  },
+                  child: const Text('getPastDiagnosticPayloads')),
+            ],
+          ),
         ),
       ),
     );

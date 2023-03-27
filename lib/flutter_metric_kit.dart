@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 
 import 'flutter_metric_kit_platform_interface.dart';
@@ -7,8 +10,15 @@ class FlutterMetricKit {
 
   static const _eventChannel = EventChannel('flutter_metric_kit.events');
 
-  static Stream<dynamic> get events =>
-      _eventChannel.receiveBroadcastStream().asBroadcastStream();
+  static void _handleData(data, EventSink sink) {
+    final map = json.decode(data);
+    sink.add(map);
+  }
+
+  static Stream<dynamic> get events => _eventChannel
+      .receiveBroadcastStream()
+      .transform(StreamTransformer.fromHandlers(handleData: _handleData))
+      .asBroadcastStream();
 
   /// Starts receiving MetricKit reports.
   static Future<void> startReceivingReports() {
@@ -18,5 +28,13 @@ class FlutterMetricKit {
   /// Stops receiving MetricKit reports.
   static Future<void> stopReceivingReports() {
     return FlutterMetricKitPlatform.instance.stopReceivingReports();
+  }
+
+  static Future<List<Map>> getPastPayloads() {
+    return FlutterMetricKitPlatform.instance.getPastPayloads();
+  }
+
+  static Future<List<Map>> getPastDiagnosticPayloads() {
+    return FlutterMetricKitPlatform.instance.getPastDiagnosticPayloads();
   }
 }

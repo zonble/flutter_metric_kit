@@ -30,4 +30,12 @@ abstract class FlutterMetricKitPlatform extends PlatformInterface {
   Future<void> stopReceivingReports() {
     return _instance.stopReceivingReports();
   }
+
+  Future<List<Map>> getPastPayloads() {
+    return _instance.getPastPayloads();
+  }
+
+  Future<List<Map>> getPastDiagnosticPayloads() {
+    return _instance.getPastDiagnosticPayloads();
+  }
 }
