@@ -1,6 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_metric_kit_method_channel.dart';
+import 'mx_metric_payload/mx_metric_payload.dart';
 
 abstract class FlutterMetricKitPlatform extends PlatformInterface {
   /// Constructs a FlutterMetricKitPlatform.
@@ -23,19 +24,17 @@ abstract class FlutterMetricKitPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<bool> startReceivingReports() {
-    return _instance.startReceivingReports();
-  }
+  /// Starts receiving MetricKit reports.
+  Future<bool> startReceivingReports() => _instance.startReceivingReports();
 
-  Future<bool> stopReceivingReports() {
-    return _instance.stopReceivingReports();
-  }
+  /// Stops receiving MetricKit reports.
+  Future<bool> stopReceivingReports() => _instance.stopReceivingReports();
 
-  Future<List<Map>> getPastPayloads() {
-    return _instance.getPastPayloads();
-  }
+  /// Gets past payloads.
+  Future<List<MXMetricPayload>> getPastPayloads() =>
+      _instance.getPastPayloads();
 
-  Future<List<Map>> getPastDiagnosticPayloads() {
-    return _instance.getPastDiagnosticPayloads();
-  }
+  /// Gets past payloads.
+  Future<List<Map>> getPastDiagnosticPayloads() =>
+      _instance.getPastDiagnosticPayloads();
 }

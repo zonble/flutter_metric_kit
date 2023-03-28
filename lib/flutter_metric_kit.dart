@@ -1,10 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
+library flutter_metric_kit;
 
-import 'package:flutter/services.dart';
-
-import 'flutter_metric_kit_platform_interface.dart';
-
+export 'src/flutter_metric_kit.dart';
+export 'src/flutter_metric_kit_method_channel.dart';
+export 'src/flutter_metric_kit_platform_interface.dart';
 export 'src/mx_metric_payload/animation_metrics.dart';
 export 'src/mx_metric_payload/application_exit_metrics.dart';
 export 'src/mx_metric_payload/application_launch_metrics.dart';
@@ -34,37 +32,3 @@ export 'src/mx_metric_payload/mx_metric_payload.dart';
 export 'src/mx_metric_payload/network_transfer_metrics.dart';
 export 'src/mx_metric_payload/signpost_interval_data.dart';
 export 'src/mx_metric_payload/signpost_metrics.dart';
-
-class FlutterMetricKit {
-  FlutterMetricKit._();
-
-  static const _eventChannel = EventChannel('flutter_metric_kit.events');
-
-  static void _handleData(data, EventSink sink) {
-    final map = json.decode(data);
-    sink.add(map);
-  }
-
-  static Stream<dynamic> get events => _eventChannel
-      .receiveBroadcastStream()
-      .transform(StreamTransformer.fromHandlers(handleData: _handleData))
-      .asBroadcastStream();
-
-  /// Starts receiving MetricKit reports.
-  static Future<bool> startReceivingReports() {
-    return FlutterMetricKitPlatform.instance.startReceivingReports();
-  }
-
-  /// Stops receiving MetricKit reports.
-  static Future<bool> stopReceivingReports() {
-    return FlutterMetricKitPlatform.instance.stopReceivingReports();
-  }
-
-  static Future<List<Map>> getPastPayloads() {
-    return FlutterMetricKitPlatform.instance.getPastPayloads();
-  }
-
-  static Future<List<Map>> getPastDiagnosticPayloads() {
-    return FlutterMetricKitPlatform.instance.getPastDiagnosticPayloads();
-  }
-}
