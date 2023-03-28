@@ -1,6 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_metric_kit_method_channel.dart';
+import 'mx_diagnostic_payload/mx_diagnostic_payload.dart';
 import 'mx_metric_payload/mx_metric_payload.dart';
 
 abstract class FlutterMetricKitPlatform extends PlatformInterface {
@@ -35,6 +36,6 @@ abstract class FlutterMetricKitPlatform extends PlatformInterface {
       _instance.getPastPayloads();
 
   /// Gets past payloads.
-  Future<List<Map>> getPastDiagnosticPayloads() =>
+  Future<List<MXDiagnosticPayload>> getPastDiagnosticPayloads() =>
       _instance.getPastDiagnosticPayloads();
 }

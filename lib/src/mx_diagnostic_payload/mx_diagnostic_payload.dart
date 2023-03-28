@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 
+import '../payload.dart';
 import 'cpu_exception_diagnostics.dart';
 import 'crash_diagnostics.dart';
 import 'disk_write_exception_diagnostics.dart';
 import 'hang_diagnostics.dart';
 
 @immutable
-class MXDiagnosticPayload {
+class MXDiagnosticPayload implements Payload {
   final List<CrashDiagnostics>? crashDiagnostics;
   final String? timeStampEnd;
   final List<HangDiagnostics>? hangDiagnostics;
@@ -36,6 +37,7 @@ class MXDiagnosticPayload {
                     .map((it) => DiskWriteExceptionDiagnostics.fromJsonMap(it)))
             : null;
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['crashDiagnostics'] =

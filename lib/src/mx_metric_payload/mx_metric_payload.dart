@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../payload.dart';
 import 'animation_metrics.dart';
 import 'application_exit_metrics.dart';
 import 'application_launch_metrics.dart';
@@ -17,7 +18,7 @@ import 'network_transfer_metrics.dart';
 import 'signpost_metrics.dart';
 
 @immutable
-class MXMetricPayload {
+class MXMetricPayload implements Payload {
   final LocationActivityMetrics? locationActivityMetrics;
   final CellularConditionMetrics? cellularConditionMetrics;
   final MetaData? metaData;
@@ -93,6 +94,7 @@ class MXMetricPayload {
         appVersion = map["appVersion"],
         timeStampBegin = map["timeStampBegin"];
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['locationActivityMetrics'] = locationActivityMetrics?.toJson();

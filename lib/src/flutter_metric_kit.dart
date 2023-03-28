@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import 'flutter_metric_kit_platform_interface.dart';
+import 'mx_diagnostic_payload/mx_diagnostic_payload.dart';
 import 'mx_metric_payload/mx_metric_payload.dart';
+import 'payload.dart';
 
 /// A plug-in that provides access to MetricKit.
 ///
@@ -21,19 +23,25 @@ class FlutterMetricKit {
     final key = map['name'];
     List payloads = map['payloads'];
     if (key == 'MXMetricPayload') {
-      sink.add(payloads
+      final event = payloads
           .cast<Map<String, dynamic>>()
           .map((e) => MXMetricPayload.fromJsonMap(e))
-          .toList());
-    } else {
-      sink.add(payloads);
+          .toList();
+      sink.add(event);
+    } else if (key == 'MXDiagnosticPayload') {
+      final event = payloads
+          .cast<Map<String, dynamic>>()
+          .map((e) => MXDiagnosticPayload.fromJsonMap(e))
+          .toList();
+      sink.add(event);
     }
   }
 
   /// The stream of the received MetricKit reports.
-  static Stream<dynamic> get events => _eventChannel
+  static Stream<Payload> get events => _eventChannel
       .receiveBroadcastStream()
-      .transform(StreamTransformer.fromHandlers(handleData: _handleData))
+      .transform<Payload>(
+          StreamTransformer.fromHandlers(handleData: _handleData))
       .asBroadcastStream();
 
   /// Starts receiving MetricKit reports.
@@ -49,6 +57,6 @@ class FlutterMetricKit {
       FlutterMetricKitPlatform.instance.getPastPayloads();
 
   /// Gets past payloads.
-  static Future<List<Map>> getPastDiagnosticPayloads() =>
+  static Future<List<MXDiagnosticPayload>> getPastDiagnosticPayloads() =>
       FlutterMetricKitPlatform.instance.getPastDiagnosticPayloads();
 }
