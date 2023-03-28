@@ -29,7 +29,7 @@ class MethodChannelFlutterMetricKit extends FlutterMetricKitPlatform {
     final string =
         await methodChannel.invokeMethod<String>('get_past_payloads');
     if (string == null) {
-      throw Exception('no result');
+      throw Exception('No result');
     }
     List list = json.decode(string);
     return list
@@ -43,7 +43,7 @@ class MethodChannelFlutterMetricKit extends FlutterMetricKitPlatform {
     final string = await methodChannel
         .invokeMethod<String>('get_diagnostic_past_payloads');
     if (string == null) {
-      throw Exception('no result');
+      throw Exception('No result');
     }
     final list = json.decode(string);
     return list.cast<Map>();

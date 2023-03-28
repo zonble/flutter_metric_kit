@@ -6,7 +6,10 @@ import 'package:flutter/services.dart';
 import 'flutter_metric_kit_platform_interface.dart';
 import 'mx_metric_payload/mx_metric_payload.dart';
 
-/// A plugin that provides access to MetricKit.
+/// A plug-in that provides access to MetricKit.
+///
+/// To use the plug-in, listen to the stream of [events] and then call
+/// [startReceivingReports]. The plug-in can work on only iOS 13 and above.
 class FlutterMetricKit {
   FlutterMetricKit._();
 
@@ -27,6 +30,7 @@ class FlutterMetricKit {
     }
   }
 
+  /// The stream of the received MetricKit reports.
   static Stream<dynamic> get events => _eventChannel
       .receiveBroadcastStream()
       .transform(StreamTransformer.fromHandlers(handleData: _handleData))
