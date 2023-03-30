@@ -38,9 +38,9 @@ class FlutterMetricKit {
   }
 
   /// The stream of the received MetricKit reports.
-  static Stream<Payload> get events => _eventChannel
+  static Stream<List<Payload>> get events => _eventChannel
       .receiveBroadcastStream()
-      .transform<Payload>(
+      .transform<List<Payload>>(
           StreamTransformer.fromHandlers(handleData: _handleData))
       .asBroadcastStream();
 
