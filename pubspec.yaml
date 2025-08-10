@@ -1,7 +1,7 @@
 name: flutter_metric_kit
 description: Flutter wrapper for MetricKit on iOS
-version: 0.0.1
-homepage:
+version: 0.0.2
+homepage: https://github.com/zonble/flutter_metric_kit
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
