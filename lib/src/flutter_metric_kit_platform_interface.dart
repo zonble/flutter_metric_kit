@@ -4,6 +4,11 @@ import 'flutter_metric_kit_method_channel.dart';
 import 'mx_diagnostic_payload/mx_diagnostic_payload.dart';
 import 'mx_metric_payload/mx_metric_payload.dart';
 
+/// The platform interface contract for [FlutterMetricKit].
+///
+/// Platform-specific implementations should extend this class and register
+/// themselves via [FlutterMetricKitPlatform.instance]. The default
+/// implementation uses method channels via [MethodChannelFlutterMetricKit].
 abstract class FlutterMetricKitPlatform extends PlatformInterface {
   /// Constructs a FlutterMetricKitPlatform.
   FlutterMetricKitPlatform() : super(token: _token);
@@ -35,7 +40,7 @@ abstract class FlutterMetricKitPlatform extends PlatformInterface {
   Future<List<MXMetricPayload>> getPastPayloads() =>
       _instance.getPastPayloads();
 
-  /// Gets past payloads.
+  /// Gets past diagnostic payloads.
   Future<List<MXDiagnosticPayload>> getPastDiagnosticPayloads() =>
       _instance.getPastDiagnosticPayloads();
 }

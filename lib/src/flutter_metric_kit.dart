@@ -56,7 +56,7 @@ class FlutterMetricKit {
   static Future<List<MXMetricPayload>> getPastPayloads() =>
       FlutterMetricKitPlatform.instance.getPastPayloads();
 
-  /// Gets past payloads.
+  /// Gets past diagnostic payloads.
   static Future<List<MXDiagnosticPayload>> getPastDiagnosticPayloads() =>
       FlutterMetricKitPlatform.instance.getPastDiagnosticPayloads();
 }
