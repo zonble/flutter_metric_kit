@@ -8,26 +8,26 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest]
-        version: [ "3.32.x"]
+        version: ["3.32.x", "stable"]
       # Disable fail-fast; we want results from all OSes even if one fails.
       fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
         with:
-          path: flutter_platform_alert
+          path: flutter_metric_kit
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.version }}
           channel: "stable" # optional, default to: 'stable'
       - name: Install dependencies
         run: flutter packages get
-        working-directory: ${{ github.workspace }}/flutter_platform_alert/example
+        working-directory: ${{ github.workspace }}/flutter_metric_kit/example
       - name: Build macOS
         if: startsWith(matrix.os, 'macOS')
         run: flutter build macos
-        working-directory: ${{ github.workspace }}/flutter_platform_alert/example
+        working-directory: ${{ github.workspace }}/flutter_metric_kit/example
       - name: Build iOS
         if: startsWith(matrix.os, 'macOS')
         run: flutter build ios --debug --no-codesign --simulator
-        working-directory: ${{ github.workspace }}/flutter_platform_alert/example
+        working-directory: ${{ github.workspace }}/flutter_metric_kit/example
